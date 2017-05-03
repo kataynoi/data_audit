@@ -99,8 +99,6 @@ audit.set_audit_hosp=function(data){
                         '<td>' + v.cc + '</td>' +
                         '<td>' + v.diagcode +':'+ v.diag_name+ '</td>' +
                         '<td><label  data-name="modal_audit" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label></td>' +
-
-
                         '</tr>'
                 );
                 no=no+1;

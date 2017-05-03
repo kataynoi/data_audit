@@ -1,10 +1,56 @@
-<div class='container'>
-    <ul class="breadcrumb">
-        <li><a href="<?php echo site_url()?>">หน้าหลัก </a></li>
-        <li class="active"><a href="<?php echo site_url('download/')?>">Download </a></li>
-    </ul>
+<p>
 
-<ul class='nav-list'>
-    <li><a href="<?php echo base_url('')."download/RestoreData.7z"?>" target="_blank"> Restore Data</a></li>
-    <li><a href="<?php echo base_url('')."download/QOF57.pdf"?>" target="_blank"> Qof สปสช. เขต 7</a></li>
-</ul>
+</p>
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            เอกสารนำเสนอ
+        </div>
+        <div class="panel-body">
+            <ul class='list-group'>
+                <li class="list-group-item">
+                    <img src="http://www.freeiconspng.com/uploads/microsoft-powerpoint--brands-of-the-world---download-vector-logos--24.gif" class="rounded float-left" alt="" style="width: 36px;height: 36px">
+                    <a href="<?php echo base_url('assets/apps/download/Auditor.ppt')?>"> ระเบียบวิธี Audit โดย นายวัฒนาศักดิ์ ไกรจันทร์ </a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            Panel Footer
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            เอกสารคู่มือ
+        </div>
+        <div class="panel-body">
+            <ul class='list-group lg col-lg-6'>
+                <li class="list-group-item">
+                    <img src="http://thcc.or.th/Images/coverbook/hdc.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">
+                    <a href="http://thcc.or.th/download/audithdc/AuditManual58_upd_06052015.pdf"> คู่มือ Audit การตรวจสอบและควบคุมคุณภาพในระบบบริการสุขภาพฯ</a>
+                </li>
+                <li class="list-group-item">
+                    <img src="http://thcc.or.th/Images/coverbook/43flie2.2.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">
+                    <a href="http://thcc.or.th/43flie/ListUpdate/43flie2.2_6Dec16.pdf"> โครงสร้างมาตรฐานข้อมูลด้านสุขภาพกระทรวงสาธารณสุขVersion 2.2 (กันยายน 2559)</a>
+                </li>
+            </ul>
+
+            <ul class='list-group lg col-lg-6'>
+                <li class="list-group-item">
+                    <img src="http://thcc.or.th/Images/coverbook/Vol1tm2016.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">
+                    <a href="http://thcc.or.th/ebook1/2016/mobile/index.html"> ICD-10-TM 2016 Vol.1
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <img src="http://thcc.or.th/Images/coverbook/Vol5tm2014.png" class="rounded float-left" alt="" style="width: 100px;height: 150px">
+                    <a href="http://thcc.or.th/ebook5/2014/index.html"> ICD-10-TM 2014 Vol.5</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="panel-footer">
+            Panel Footer
+        </div>
+    </div>
+</div>

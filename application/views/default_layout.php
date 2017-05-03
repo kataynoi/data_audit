@@ -126,7 +126,11 @@
                         <a href="<?php echo base_url()?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="<?php echo site_url('audit')?>"><i class="fa fa-bar-chart-o fa-fw"></i>Audit</a>
+                        <a href="<?php echo site_url('audit')?>"><i class="fa fa-bar-chart-o fa-fw"></i> Audit</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo site_url('download')?>"><i class="fa fa-arrow-down fa-fw"></i> Download </a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
