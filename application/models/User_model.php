@@ -8,7 +8,7 @@ class User_model extends CI_Model
             ->where('password', 'PASSWORD("'.$password.'")',false)
             ->get('mas_users u')
             ->row();
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
         return $rs;
     }
     public function get_user($id){
