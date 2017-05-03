@@ -6,7 +6,7 @@ index.php
 application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
-
+ci_session/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
