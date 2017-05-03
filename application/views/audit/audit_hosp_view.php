@@ -76,12 +76,12 @@
                     <div class="panel-body">
                 <form role="form">
                     <input type="hidden" id="data_audit_id">
-                    <input type="text" id="seq">
-                    <input type="text" id="hospcode">
+                    <input type="hidden" id="seq">
+                    <input type="hidden" id="hospcode">
                     <input type="hidden" id="score">
                     <input type="hidden" id="max_score">
                     <input type="hidden" id="percent">
-                    <input type="text" id="action">
+                    <input type="hidden" id="action">
                  <div class="row">
                     <div class="form-group col col-lg-6">
                         <label>วันเวลาที่มารับบริการ</label>
