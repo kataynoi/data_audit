@@ -12,7 +12,7 @@ application/logs/*
 !application/logs/.htaccess
 
 user_guide/*
-sb_admin/*
+sb-admin/*
 .idea/*
 .buildpath
 .project
