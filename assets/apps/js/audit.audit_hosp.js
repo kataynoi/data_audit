@@ -87,8 +87,14 @@ audit.set_audit_hosp=function(data){
         if (_.size(data.rows) > 0) {
 
             var no= 1,total_time= 0,total= 0,total_in= 0,total_out=0;
+            var audit_status;
             _.each(data.rows, function (v) {
 
+                if(v.date_audit){
+                    audit_status='<label  data-name="modal_audit"  data-action="edit" class="btn btn-success btn-circle" data-id="'+ v.id+'"><i class="fa fa-edit"></i></label>';
+                }else{
+                    audit_status='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
+                }
                 $('#tbl_list > tbody').append(
                     '<tr>' +
                         '<td>' + no + '</td>' +
@@ -98,7 +104,7 @@ audit.set_audit_hosp=function(data){
                         '<td>' + v.cid + '</td>' +
                         '<td>' + v.cc + '</td>' +
                         '<td>' + v.diagcode +':'+ v.diag_name+ '</td>' +
-                        '<td><label  data-name="modal_audit" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label></td>' +
+                        '<td>'+audit_status+'</td>' +
                         '</tr>'
                 );
                 no=no+1;

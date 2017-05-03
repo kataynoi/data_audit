@@ -37,9 +37,11 @@ class Audit_model extends CI_Model
     }
     public  function get_audit_hosp($hospcode){
         $rs = $this->db
-            ->where('hospcode',$hospcode)
-            ->order_by('date_serve')
-            ->get('data_audit ')
+            ->select('a.*,b.date_audit')
+            ->where('a.hospcode',$hospcode)
+            ->join('audit b','a.id=b.data_audit_id','left')
+            ->order_by('a.date_serve')
+            ->get('data_audit a ')
             ->result();
         return $rs;
     }
