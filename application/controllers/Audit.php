@@ -84,6 +84,19 @@ class Audit extends CI_Controller {
 
         render_json($json);
     }
+    public function edit_audit(){
+        //$id=$this->session->userdata('user_id');
+        $data=$this->input->post('items');
+        $rs=$this->audit->update_audit($data);
+        if($rs){
+            $json = '{"success": true}';
+            //$json = '{"success": true,"msg":"ท่านสามารถเข้าสู่ระบบได้ทันที"}';
+        }else{
+            $json = '{"success": false}';
+        }
+
+        render_json($json);
+    }
 
     public function get_service (){
         $items=$this->input->post('items');

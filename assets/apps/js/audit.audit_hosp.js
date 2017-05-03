@@ -31,28 +31,58 @@ $(document).ready(function(){
             app.ajax(url, params, function (err, data) {
                 err ? cb(err) : cb(null, data);
             });
+        },
+        edit_audit: function (items, cb) {
+            var url = '/audit/edit_audit',
+                params = {
+                    items: items
+                }
+
+            app.ajax(url, params, function (err, data) {
+                err ? cb(err) : cb(null, data);
+            });
         }
 
     };
 
     audit.modal = {
-        show_audit_info: function (id) {
+        show_audit_info: function (id,action) {
             $('#mdl_audit_info').modal({
                 keyboard: false,
                 backdrop: 'static'
             });
-            audit.get_audit_info(id);
+            audit.get_audit_info(id,action);
         },
         hide_audit: function() {
             $('#mdl_audit_info').modal('hide');
         }
     };
-audit.get_audit_info = function(id){
+audit.get_audit_info = function(id,action){
         //$('#tbl_list > tbody').empty();
         app.clear_form();
         audit.ajax.get_audit_info(id, function (err, data) {
             audit.set_audit_info(data);
+            if(action =='edit'){
+                //app.alert('Edit'+data.rows.id)
+                $("#action").val(action);
+                $("#sl_datetime").val(data.rows.datetime).change();
+                $("#sl_cc").val(data.rows.cc).change();
+                $("#sl_phy_ex").val(data.rows.phy_ex).change();
+                $("#sl_diag_text").val(data.rows.diag_text).change();
+                $("#sl_treatment").val(data.rows.treatment).change();
+                $("#sl_history").val(data.rows.history).change();
+            }else
+            {   $("#action").val('insert');
+                $("#sl_datetime").val(0).change();
+                $("#sl_cc").val(0).change();
+                $("#sl_phy_ex").val(0).change();
+                $("#sl_diag_text").val(0).change();
+                $("#sl_treatment").val(0).change();
+                $("#sl_history").val(0).change();
+
+            }
         });
+
 
     }
 
@@ -163,23 +193,40 @@ audit.set_audit_hosp=function(data){
     $(document).on('click', 'label[data-name="modal_audit"]', function(e) {
         e.preventDefault();
         var id = $(this).data('id');
-        audit.modal.show_audit_info(id);
+        var action = $(this).data('action');
+        audit.modal.show_audit_info(id,action);
 
     });
 
     audit.save_audit = function(items){
+        //app.alert(items.action);
+        if(items.action == "insert"){
+            audit.ajax.save_audit(items, function (err, data) {
+                if (err) {
+                    app.alert(err);
+                }
+                else {
+                    alert('บันทึกข้อมูลเรียบร้อย');
+                    audit.modal.hide_audit();
+                    app.clear_form();
+                    audit.get_audit_hosp(hospcode);
+                }
+            });
+        }else{
+            audit.ajax.edit_audit(items, function (err, data) {
+                if (err) {
+                    app.alert(err);
+                }
+                else {
+                    alert('บันทึกข้อมูลเรียบร้อย');
+                    audit.modal.hide_audit();
+                    app.clear_form();
+                    audit.get_audit_hosp(hospcode);
+                }
+            });
 
-        audit.ajax.save_audit(items, function (err, data) {
-            if (err) {
-                app.alert(err);
-            }
-            else {
-                alert('บันทึกข้อมูลเรียบร้อย');
-                audit.modal.hide_audit();
-                app.clear_form();
-                audit.get_audit_hosp(hospcode);
-            }
-        });
+        }
+
     }
 
     $('#btn_audit_save').on('click',function(){
@@ -198,6 +245,7 @@ audit.set_audit_hosp=function(data){
         items.diag_text=$('#sl_diag_text').val();
         items.treatment=$('#sl_treatment').val();
         items.note=$('#note').val();
+        items.action=$('#action').val();
 
         if (!items.score) {
             app.alert('บันทึกข้อมูล Audit ก่อนนะครับ ยังไม่มีคะแนนเลย');
