@@ -87,13 +87,18 @@ audit.set_audit_hosp=function(data){
         if (_.size(data.rows) > 0) {
 
             var no= 1,total_time= 0,total= 0,total_in= 0,total_out=0;
-            var audit_status;
+            var audit_status,audit_icd10;
             _.each(data.rows, function (v) {
-
+                if(v.percent==null){v.percent='-'}
                 if(v.date_audit){
-                    audit_status='<label  data-name="modal_audit"  data-action="edit" class="btn btn-success btn-circle" data-id="'+ v.id+'"><i class="fa fa-edit"></i></label>';
+                    audit_status='<label  data-name="modal_audit"  data-action="edit" class="btn btn-success btn-circle" data-id="'+ v.id+'"><i class="fa fa-edit"></i></label> ร้อยละ '+ v.percent +' ';
                 }else{
                     audit_status='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
+                }
+                if(v.audit_icd10){
+                    audit_icd10='<label  data-name="modal_audit"  data-action="edit" class="btn btn-success btn-circle" data-id="'+ v.id+'"><i class="fa fa-edit"></i></label>';
+                }else{
+                    audit_icd10='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
                 }
                 $('#tbl_list > tbody').append(
                     '<tr>' +
@@ -102,9 +107,8 @@ audit.set_audit_hosp=function(data){
                         '<td>' + v.name+'  ' + v.lname + '</td>' +
                         '<td>' + v.hn + '</td>' +
                         '<td>' + v.cid + '</td>' +
-                        '<td>' + v.cc + '</td>' +
-                        '<td>' + v.diagcode +':'+ v.diag_name+ '</td>' +
-                        '<td>'+audit_status+'</td>' +
+                        '<td>' + audit_icd10+ '</td>' +
+                        '<td>'+audit_status +'</td>' +
                         '</tr>'
                 );
                 no=no+1;

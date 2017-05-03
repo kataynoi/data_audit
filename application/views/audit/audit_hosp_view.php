@@ -24,9 +24,8 @@
         <th> ชื่อ สกุล</th>
         <th> HN</th>
         <th> เลขประชาชน</th>
-        <th> CC</th>
-        <th> Diag Code</th>
-        <th> บันทึก Audit</th>
+        <th> บันทึก Audit ICD10</th>
+        <th> บันทึก Audit เวชระเบียน</th>
     </tr>
     </thead>
     <tbody>

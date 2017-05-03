@@ -37,7 +37,7 @@ class Audit_model extends CI_Model
     }
     public  function get_audit_hosp($hospcode){
         $rs = $this->db
-            ->select('a.*,b.date_audit')
+            ->select('a.*,b.date_audit,b.percent,b.score,b.max_score')
             ->where('a.hospcode',$hospcode)
             ->join('audit b','a.id=b.data_audit_id','left')
             ->order_by('a.date_serve')
