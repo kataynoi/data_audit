@@ -12,7 +12,7 @@ class Pages extends CI_Controller {
     }
 	public function index()
 	{
-		$this->layout->view('pages/index_view');
+		$this->layout->view('download/index_view');
 	}
 
     public function get_disease(){
