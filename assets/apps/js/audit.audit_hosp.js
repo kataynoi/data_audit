@@ -42,6 +42,38 @@ $(document).ready(function(){
                 err ? cb(err) : cb(null, data);
             });
         }
+        ,
+        get_audit_icd10: function (hospcode,seq, cb) {
+            var url = '/audit/get_audit_icd10',
+                params = {
+                    hospcode: hospcode,
+                    seq : seq
+                }
+
+            app.ajax(url, params, function (err, data) {
+                err ? cb(err) : cb(null, data);
+            });
+        },
+        save_audit_icd10: function (items, cb) {
+            var url = '/audit/save_audit_icd10',
+                params = {
+                    items: items
+                }
+
+            app.ajax(url, params, function (err, data) {
+                err ? cb(err) : cb(null, data);
+            });
+        },
+        edit_audit_icd10: function (items, cb) {
+            var url = '/audit/edit_audit_icd10',
+                params = {
+                    items: items
+                }
+
+            app.ajax(url, params, function (err, data) {
+                err ? cb(err) : cb(null, data);
+            });
+        }
 
     };
 
@@ -55,8 +87,19 @@ $(document).ready(function(){
         },
         hide_audit: function() {
             $('#mdl_audit_info').modal('hide');
+        },show_audit_icd10: function (id,seq,hospcode,action) {
+            console.log('Modal');
+            $('#mdl_audit_icd10').modal({
+                keyboard: false,
+                backdrop: 'static'
+            });
+            audit.get_audit_info(id,action);
+            audit.get_audit_icd10(hospcode,seq,action);
+        },hide_audit_icd10: function() {
+            $('#mdl_audit_icd10').modal('hide');
         }
     };
+
 audit.get_audit_info = function(id,action){
         //$('#tbl_list > tbody').empty();
         app.clear_form();
@@ -66,7 +109,7 @@ audit.get_audit_info = function(id,action){
                 //app.alert('Edit'+data.rows.id)
                 $("#action").val(action);
                 $("#sl_datetime").val(data.rows.datetime).change();
-                $("#sl_cc").val(data.rows.cc).change();
+                $("#sl_cc").val(data.rows.a_cc).change();
                 $("#sl_phy_ex").val(data.rows.phy_ex).change();
                 $("#sl_diag_text").val(data.rows.diag_text).change();
                 $("#sl_treatment").val(data.rows.treatment).change();
@@ -85,7 +128,34 @@ audit.get_audit_info = function(id,action){
 
 
     }
+    audit.get_audit_icd10 = function(hospcode,seq,action){
+        //$('#tbl_list > tbody').empty();
+        app.clear_form();
+        audit.ajax.get_audit_icd10(hospcode,seq, function (err, data) {
+            audit.set_audit_icd10(data);
+            if(action =='edit'){
+                //app.alert('Edit'+data.rows.id)
+                $("#action").val(action);
+                $("#sl_datetime").val(data.rows.datetime).change();
+                $("#sl_cc").val(data.rows.a_cc).change();
+                $("#sl_phy_ex").val(data.rows.phy_ex).change();
+                $("#sl_diag_text").val(data.rows.diag_text).change();
+                $("#sl_treatment").val(data.rows.treatment).change();
+                $("#sl_history").val(data.rows.history).change();
+            }else
+            {   $("#action").val('insert');
+                $("#sl_datetime").val(0).change();
+                $("#sl_cc").val(0).change();
+                $("#sl_phy_ex").val(0).change();
+                $("#sl_diag_text").val(0).change();
+                $("#sl_treatment").val(0).change();
+                $("#sl_history").val(0).change();
 
+            }
+        });
+
+
+    }
     audit.set_audit_info=function(data){
         console.log(JSON.stringify(data));
 
@@ -98,10 +168,51 @@ audit.get_audit_info = function(id,action){
             $('#hospcode').val(data.rows.hospcode);
             $('#data_audit_id').val(data.rows.id);
 
+            $('#date_serve_icd10').html(data.rows.date_serve);
+            $('#pt_name_icd10').html(data.rows.name+'  '+data.rows.lname);
+            $('#cid_icd10').html(data.rows.cid);
+            $('#hn_icd10').html(data.rows.hn);
+            $('#cc_icd10').html(data.rows.cc);
+            $('#seq_icd10').val(data.rows.seq);
+            $('#hospcode_icd10').val(data.rows.hospcode);
+            $('#data_audit_id_icd10').val(data.rows.id);
+
 
 
 
     }
+    audit.set_audit_icd10 = function(data){
+        $('#tbl_icd10_list > tbody').empty();
+        var no =1;
+        if (_.size(data.rows) > 0) {
+            _.each(data.rows, function (v) {
+                $('#tbl_icd10_list > tbody').append(
+                    '<tr>' +
+                    '<td>'+no+'</td>' +
+                    '<td>' + v.DIAGCODE + '</td>' +
+                    '<td>' + v.diseasethai + '</td>' +
+                    '<td>'+ v.DIAGTYPE+'</td>' +
+                    '<td><select data-seq="'+ v.SEQ +'" data-name="sl_auditicd10" class="form-control"' +
+                    'data-hospcode="'+ v.HOSPCODE+'">' +
+                    '<option value="Y"> สัญลักษณ์Y : ให้รหัสถูกต้อง</option>' +
+                    '<option value="์A"> สัญลักษณ์A : ให้รหัสโรคผิดพลาด</option>' +
+                    '<option value="B์"> สัญลักษณ์B : มีรหัสโรคทั้งๆที่ไม่มีคําวินิจฉัยโรคในบันทึก</option>' +
+                    '<option value="C์"> สัญลักษณ์C : รหัสเป็นรหัสด้อยคุณภาพ โดยมีสาเหตุมาจากคําวินิจฉัยโรคที่ด้อยคุณภาพ</option>' +
+                    '<option value="D์"> สัญลักษณ์D : รหัสมีตัวเลขไม่ครบทุกตําแหน่ง</option>' +
+                    '<option value="F์"> สัญลักษณ์F : รหัสมีตัวเลขมากเกินไป</option>' +
+                    '<option value="์G"> สัญลักษณ์G : ควรมีรหัสนี้แต่รหัสไม่ปรากฏในข้อมูลที่ตรวจสอบ</option>' +
+                    '<option value="์H"> สัญลักษณ์H : ไม่ควรมีรหัสนี้แต่มีรหัสในข้อมูลที่ตรวจสอบ</option>' +
+                    '</select></td>'+
+                    '</tr>'
+                );
+                no++;
+            });
+        }
+        else {
+            $('#tbl_icd10_list > tbody').append('<tr><td colspan="8">ไม่พบรายการ</td></tr>');
+        }
+    }
+
 audit.get_audit_hosp = function(hospcode){
         $('#tbl_list > tbody').empty();
         audit.ajax.get_audit_hosp(hospcode, function (err, data) {
@@ -126,9 +237,9 @@ audit.set_audit_hosp=function(data){
                     audit_status='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
                 }
                 if(v.audit_icd10){
-                    audit_icd10='<label  data-name="modal_audit"  data-action="edit" class="btn btn-success btn-circle" data-id="'+ v.id+'"><i class="fa fa-edit"></i></label>';
+                    audit_icd10='<label  data-name="modal_audit_icd10"  data-action="edit" class="btn btn-success btn-circle" data-seq="'+ v.seq+'" data-id="'+ v.id+'"><i class="fa fa-check-square-o"></i></label>';
                 }else{
-                    audit_icd10='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
+                    audit_icd10='<label  data-name="modal_audit_icd10" data-action="save" class="btn btn-info btn-circle" data-seq="'+ v.seq+'" data-id="'+ v.id+'"><i class="fa fa-list-ol"></i></label>';
                 }
                 $('#tbl_list > tbody').append(
                     '<tr>' +
@@ -195,6 +306,25 @@ audit.set_audit_hosp=function(data){
         var id = $(this).data('id');
         var action = $(this).data('action');
         audit.modal.show_audit_info(id,action);
+
+    });
+
+    $(document).on('click', 'label[data-name="modal_audit_icd10"]', function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var action = $(this).data('action');
+        var seq = $(this).data('seq');
+        audit.modal.show_audit_icd10(id,seq,hospcode,action);
+
+    });
+
+    $(document).on('change', 'select[data-name="sl_auditicd10"]', function(e) {
+        e.preventDefault();
+        var seq = $(this).data('seq');
+        var hospcode = $(this).data('hospcode');
+        var audit_icd10 = $(this).val();
+        app.alert(hospcode);
+       // audit.modal.show_audit_icd10(id,seq,hospcode,action);
 
     });
 

@@ -36,6 +36,7 @@ class Audit extends CI_Controller {
     }
     public function audit_hosp($hospcode)
     {
+        //$data['hospcode']=$this->input->post('hospcode');
         $data['hospcode']=$hospcode;
         $data['sl_datetime'] = $this->basic->get_sl_datetime();
         $data['sl_cc'] = $this->basic->get_sl_cc();
@@ -57,7 +58,7 @@ class Audit extends CI_Controller {
         $id=$this->input->post('id');
 
         $rs = $this->audit->get_audit_info($id);
-
+        //echo $rs;
         if($rs)
         {
             $rows = json_encode($rs);
@@ -98,60 +99,46 @@ class Audit extends CI_Controller {
         render_json($json);
     }
 
-    public function get_service (){
-        $items=$this->input->post('items');
-        $hospcode=$items['hospcode'];
-        $cid=$items['cid'];
-        $s=to_mysql_date_dash($items['date_start']);
-        $e=to_mysql_date_dash($items['date_end']);
-        $op=$items['op'];
-        if($op=='1'){
-            $rs = $this->audit->get_service_op($hospcode,$cid,$s,$e);
+    public function get_audit_icd10 (){
+        $hospcode=$this->input->post('hospcode');
+        $seq=$this->input->post('seq');
+
+        $rs = $this->audit->get_audit_icd10($hospcode,$seq);
+        //echo $rs;
+        $rows = json_encode($rs);
+
+        $json = '{"success": true, "rows": '.$rows.'}';
+        render_json($json);
+    }
+
+    public function save_audit_icd10(){
+        //$id=$this->session->userdata('user_id');
+        $data=$this->input->post('items');
+        $rs=$this->audit->save_audit($data);
+        if($rs){
+            $json = '{"success": true}';
+            //$json = '{"success": true,"msg":"ท่านสามารถเข้าสู่ระบบได้ทันที"}';
         }else{
-            $rs = $this->audit->get_service($hospcode,$cid,$s,$e);
+            $json = '{"success": false}';
         }
 
-        $arr_result = array();
-        foreach($rs as $r)
-        {
-            $obj = new stdClass();
-            $obj->date_serv= to_thai_date($r->DATE_SERV);
-            $arr_result[] = $obj;
+        render_json($json);
+    }
+    public function edit_audit_icd10(){
+        //$id=$this->session->userdata('user_id');
+        $data=$this->input->post('items');
+        $rs=$this->audit->update_audit($data);
+        if($rs){
+            $json = '{"success": true}';
+            //$json = '{"success": true,"msg":"ท่านสามารถเข้าสู่ระบบได้ทันที"}';
+        }else{
+            $json = '{"success": false}';
         }
-        $rows = json_encode($arr_result);
-        $json = '{"success": true, "rows": '.$rows.'}';
+
         render_json($json);
     }
 
-    public function get_visit_list (){
-        $items=$this->input->post('items');
-        $cid=$items['cid'];
-        $visit_date=to_mysql_date_dash($items['visit_date']);
-
-
-        $rs = $this->audit->get_visit_list($cid,$visit_date);
-        $arr_result = array();
-        foreach($rs as $r)
-        {
-            $obj = new stdClass();
-            $obj->date_serv= to_thai_date($r->DATE_SERV);
-            $obj->off_name = $this->basic->get_off_name($r->HOSPCODE);
-            $obj->age = $r->AGE." ปี ".$r->month." เดือน";
-            $obj->seq = $r->SEQ;
-            $obj->diagcode=$r->DIAGCODE;
-            $obj->diseasename = $this->basic->get_diseasename($r->DIAGCODE);
-            $obj->diag=$this->basic->get_diag_visit($r->HOSPCODE,$r->SEQ);
-            $obj->drug=$this->basic->get_drug_visit($r->HOSPCODE,$r->SEQ);
-            $obj->proced=$this->basic->get_proced_visit($r->HOSPCODE,$r->SEQ);
-            $obj->bp1 = $r->SBP."/".$r->DBP;
-            $obj->price=$r->PRICE;
-            $arr_result[] = $obj;
-        }
-        $rows = json_encode($arr_result);
-        $json = '{"success": true, "rows": '.$rows.'}';
-        render_json($json);
-    }
-public function check_person_audit(){
+    public function check_person_audit(){
     $cid=$this->input->post('cid');
     $hospcode=$this->input->post('hospcode');
 
