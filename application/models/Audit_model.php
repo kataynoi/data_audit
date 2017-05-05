@@ -100,7 +100,7 @@ class Audit_model extends CI_Model
         return $rs;
     }
 
-    public  function get_audit_icd10($hospcode,$seq){
+    public  function get_audit_icd($hospcode,$seq){
         $rs = $this->db
             ->select('a.*,b.diseasethai')
             //->select('b.datetime, b.cc as a_cc, b.history, b.phy_ex,b.treatment, b.diag_text')
@@ -112,30 +112,19 @@ class Audit_model extends CI_Model
             ->result();
         return $rs;
     }
-    public function save_audit_icd10($data)
+    public function save_audit_icd($data)
     {
         $rs = $this->db
 
-            ->set('data_audit_id',$data['data_audit_id'])
-            ->set('hospcode', $data['hospcode'])
-            ->set('seq', $data['seq'])
-            ->set('max_score', $data['max_score'])
-            ->set('score', $data['score'])
-            ->set('percent', $data['percent'])
-            ->set('cc', $data['cc'])
-            ->set('datetime', $data['datetime'])
-            ->set('history', $data['history'])
-            ->set('phy_ex', $data['phy_ex'])
-            ->set('diag_text', $data['diag_text'])
-            ->set('treatment', $data['treatment'])
-            ->set('date_audit', date('Y-m-d'))
-            ->set('date_record', date('Y-m-d H:i:s'))
-            ->insert('audit');
-
+            ->set('AUDIT_ICD10',$data['txt_auditicd'])
+            ->where('HOSPCODE',$data['hospcode'])
+            ->where('SEQ',$data['seq'])
+            ->update('diagnosis_opd');
+        //echo $this->db->last_query();
         return $rs;
     }
 
-    public function update_audit_icd10($data)
+    public function update_audit_icd($data)
     {
         $rs = $this->db
             ->set('hospcode', $data['hospcode'])

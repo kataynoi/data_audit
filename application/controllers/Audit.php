@@ -99,11 +99,11 @@ class Audit extends CI_Controller {
         render_json($json);
     }
 
-    public function get_audit_icd10 (){
+    public function get_audit_icd (){
         $hospcode=$this->input->post('hospcode');
         $seq=$this->input->post('seq');
 
-        $rs = $this->audit->get_audit_icd10($hospcode,$seq);
+        $rs = $this->audit->get_audit_icd($hospcode,$seq);
         //echo $rs;
         $rows = json_encode($rs);
 
@@ -111,20 +111,18 @@ class Audit extends CI_Controller {
         render_json($json);
     }
 
-    public function save_audit_icd10(){
+    public function save_audit_icd(){
         //$id=$this->session->userdata('user_id');
         $data=$this->input->post('items');
-        $rs=$this->audit->save_audit($data);
+        $rs=$this->audit->save_audit_icd($data);
         if($rs){
             $json = '{"success": true}';
             //$json = '{"success": true,"msg":"ท่านสามารถเข้าสู่ระบบได้ทันที"}';
         }else{
             $json = '{"success": false}';
         }
-
-        render_json($json);
     }
-    public function edit_audit_icd10(){
+    public function edit_audit_icd(){
         //$id=$this->session->userdata('user_id');
         $data=$this->input->post('items');
         $rs=$this->audit->update_audit($data);

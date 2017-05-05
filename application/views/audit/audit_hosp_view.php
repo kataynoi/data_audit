@@ -31,7 +31,7 @@
     <tbody>
     </tbody>
 </table>
-<div class="modal fade" id="mdl_audit_icd10">
+<div class="modal fade" id="mdl_audit_icd">
     <div class="modal-dialog" style="width: 960px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +41,7 @@
             <div class="modal-body">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        ตรวจสอบการบันทึกข้อมูลเวชระเบียนผู้ป่วยนอก
+                        ตรวจสอบการบันทึกข้อมูล การให้รหัสโรค
                     </div>
                     <div class="panel-body">
                         <table class="table " id=''>
@@ -56,11 +56,11 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td id="date_serve_icd10"></td>
-                                <td id="pt_name_icd10"></td>
-                                <td id="hn_icd10"></td>
-                                <td id="cid_icd10"></td>
-                                <td id="cc_icd10"></td>
+                                <td id="date_serve_icd"></td>
+                                <td id="pt_name_icd"></td>
+                                <td id="hn_icd"></td>
+                                <td id="cid_icd"></td>
+                                <td id="cc_icd"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -77,15 +77,15 @@
                     </div>
                     <div class="panel-body">
                         <form role="form">
-                            <input type="hidden" id="data_audit_id_icd10">
-                            <input type="hidden" id="seq_icd10">
-                            <input type="hidden" id="hospcode_icd10">
-                            <input type="hidden" id="score_icd10">
-                            <input type="hidden" id="max_score_icd10">
-                            <input type="hidden" id="percent_icd10">
-                            <input type="hidden" id="action_icd10">
+                            <input type="hidden" id="data_audit_id_icd">
+                            <input type="hidden" id="seq_icd">
+                            <input type="hidden" id="hospcode_icd">
+                            <input type="hidden" id="score_icd">
+                            <input type="hidden" id="max_score_icd">
+                            <input type="hidden" id="percent_icd">
+                            <input type="hidden" id="action_icd">
 
-                            <table class="table " id='tbl_icd10_list'>
+                            <table class="table " id='tbl_icd_list'>
                                 <thead>
                                 <tr>
                                     <th> No</th>
@@ -104,7 +104,6 @@
                         </form>
                     </div>
                     <div class="panel-footer text-center">
-                        <button type="submit" class="btn btn-default" id="btn_audit_icd10_save">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>
