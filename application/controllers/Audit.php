@@ -50,8 +50,20 @@ class Audit extends CI_Controller {
         $hospcode=$this->input->post('hospcode');
 
         $rs = $this->audit->get_audit_hosp($hospcode);
+        $arr_result = array();
+        foreach($rs as $r)
+        {
+            $obj = new stdClass();
+            $obj->date_serve = $r->date_serve;
+            $obj->name=$r->name;
+            $obj->lname=$r->lname;
+            $obj->hn=$r->hn;
+            $obj->cid=$r->cid;
+            $arr_result[] = $obj;
+        }
+        $rows = json_encode($arr_result);
+        $json = '{"success": true, "rows": '.$rows.'}';
 
-        $json = '{"success": true, "rows": '.json_encode($rs).'}';
         render_json($json);
     }
     public function get_audit_info (){
