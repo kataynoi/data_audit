@@ -119,7 +119,7 @@ class Audit_model extends CI_Model
             ->set('AUDIT_ICD10',$data['txt_auditicd'])
             ->where('HOSPCODE',$data['hospcode'])
             ->where('SEQ',$data['seq'])
-            ->where('DIAGTYPE',$data['diagtype'])
+            ->where('DIAGCODE',$data['diagcode'])
             ->update('diagnosis_opd');
         //echo $this->db->last_query();
         return $rs;

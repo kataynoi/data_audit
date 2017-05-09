@@ -214,7 +214,7 @@ audit.get_audit_info = function(id,action){
                     '<td>' + v.diseasethai + '</td>' +
                     '<td>'+ v.DIAGTYPE+'</td>' +
                     '<td><select data-seq="'+ v.SEQ +'" data-name="sl_auditicd" class="form-control"' +
-                    'data-hospcode="'+ v.HOSPCODE+'" data-diagtype="'+ v.DIAGTYPE+'">' +
+                    'data-hospcode="'+ v.HOSPCODE+'" data-diagcode="'+ v.DIAGCODE+'">' +
                     option+
                     '</select></td>'+
                     '</tr>'
@@ -337,7 +337,7 @@ audit.set_audit_hosp=function(data){
         var items={};
         items.seq = $(this).data('seq');
         items.hospcode = $(this).data('hospcode');
-        items.diagtype = $(this).data('diagtype');
+        items.diagcode = $(this).data('diagcode');
         items.txt_auditicd = $(this).val();
 
         //app.alert(hospcode);
