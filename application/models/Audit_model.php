@@ -119,6 +119,7 @@ class Audit_model extends CI_Model
             ->set('AUDIT_ICD10',$data['txt_auditicd'])
             ->where('HOSPCODE',$data['hospcode'])
             ->where('SEQ',$data['seq'])
+            ->where('DIAGTYPE',$data['diagtype'])
             ->update('diagnosis_opd');
         //echo $this->db->last_query();
         return $rs;
@@ -144,6 +145,16 @@ class Audit_model extends CI_Model
             ->update('audit');
 
         return $rs;
+    }
+    public function get_audit_icd10_status ($hospcode,$seq){
+        $rs = $this->db
+            ->select('GROUP_CONCAT(AUDIT_ICD10) as AUDIT_ICD10',false)
+            ->where('seq',$seq)
+            ->where('hospcode',$hospcode)
+            ->get('diagnosis_opd')
+            ->row();
+
+        return $rs->AUDIT_ICD10;
     }
 }
 

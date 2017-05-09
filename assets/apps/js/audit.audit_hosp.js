@@ -214,7 +214,7 @@ audit.get_audit_info = function(id,action){
                     '<td>' + v.diseasethai + '</td>' +
                     '<td>'+ v.DIAGTYPE+'</td>' +
                     '<td><select data-seq="'+ v.SEQ +'" data-name="sl_auditicd" class="form-control"' +
-                    'data-hospcode="'+ v.HOSPCODE+'">' +
+                    'data-hospcode="'+ v.HOSPCODE+'" data-diagtype="'+ v.DIAGTYPE+'">' +
                     option+
                     '</select></td>'+
                     '</tr>'
@@ -250,8 +250,8 @@ audit.set_audit_hosp=function(data){
                 }else{
                     audit_status='<label  data-name="modal_audit" data-action="save" class="btn btn-primary btn-circle" data-id="'+ v.id+'"><i class="fa fa-list"></i></label>';
                 }
-                if(v.audit_icd){
-                    audit_icd='<label  data-name="modal_audit_icd"  data-action="edit" class="btn btn-success btn-circle" data-seq="'+ v.seq+'" data-id="'+ v.id+'"><i class="fa fa-check-square-o"></i></label>';
+                if(v.audit_icd10){
+                    audit_icd='<label  data-name="modal_audit_icd"  data-action="edit" class="btn btn-success btn-circle" data-seq="'+ v.seq+'" data-id="'+ v.id+'"><i class="fa fa-check-square-o"></i></label> Audit : '+ v.audit_icd10;
                 }else{
                     audit_icd='<label  data-name="modal_audit_icd" data-action="save" class="btn btn-info btn-circle" data-seq="'+ v.seq+'" data-id="'+ v.id+'"><i class="fa fa-list-ol"></i></label>';
                 }
@@ -337,6 +337,7 @@ audit.set_audit_hosp=function(data){
         var items={};
         items.seq = $(this).data('seq');
         items.hospcode = $(this).data('hospcode');
+        items.diagtype = $(this).data('diagtype');
         items.txt_auditicd = $(this).val();
 
         //app.alert(hospcode);

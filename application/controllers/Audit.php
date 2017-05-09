@@ -54,11 +54,19 @@ class Audit extends CI_Controller {
         foreach($rs as $r)
         {
             $obj = new stdClass();
+
+            $obj->id = $r->id;
             $obj->date_serve = $r->date_serve;
             $obj->name=$r->name;
             $obj->lname=$r->lname;
             $obj->hn=$r->hn;
+            $obj->seq=$r->seq;
             $obj->cid=$r->cid;
+            $obj->date_audit = $r->date_audit;
+            $obj->percent = $r->percent;
+            $obj->score = $r->score;
+            $obj->max_score = $r->max_score;
+            $obj->audit_icd10 = $this->audit->get_audit_icd10_status($r->hospcode,$r->seq);
             $arr_result[] = $obj;
         }
         $rows = json_encode($arr_result);

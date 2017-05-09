@@ -225,7 +225,7 @@ class User_model extends CI_Model
             ->join('mas_users as b','b.office=a.off_id')
             ->get('co_office as a')
             ->row();
-        return $rs->off_name;
+
         return $rs->off_name;
     }
 
