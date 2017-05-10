@@ -141,6 +141,7 @@ class Audit extends CI_Controller {
         }else{
             $json = '{"success": false}';
         }
+        render_json($json);
     }
     public function edit_audit_icd(){
         //$id=$this->session->userdata('user_id');

@@ -63,7 +63,7 @@ $(document).ready(function(){
             app.ajax(url, params, function (err, data) {
                 //console.log(JSON.stringify(data));
 
-                //err ? cb(err) : cb(null, data);
+                err ? cb(err) : cb(null, data);
             });
         },
         edit_audit_icd: function (items, cb) {
@@ -134,26 +134,10 @@ audit.get_audit_info = function(id,action){
         //$('#tbl_list > tbody').empty();
         app.clear_form();
         audit.ajax.get_audit_icd(hospcode,seq, function (err, data) {
-            audit.set_audit_icd(data);
-            if(action =='edit'){
-                //app.alert('Edit'+data.rows.id)
-                $("#action").val(action);
-                $("#sl_datetime").val(data.rows.datetime).change();
-                $("#sl_cc").val(data.rows.a_cc).change();
-                $("#sl_phy_ex").val(data.rows.phy_ex).change();
-                $("#sl_diag_text").val(data.rows.diag_text).change();
-                $("#sl_treatment").val(data.rows.treatment).change();
-                $("#sl_history").val(data.rows.history).change();
-            }else
-            {   $("#action").val('insert');
-                $("#sl_datetime").val(0).change();
-                $("#sl_cc").val(0).change();
-                $("#sl_phy_ex").val(0).change();
-                $("#sl_diag_text").val(0).change();
-                $("#sl_treatment").val(0).change();
-                $("#sl_history").val(0).change();
-
+            if(!err){
+                audit.set_audit_icd(data);
             }
+
         });
 
 
@@ -209,7 +193,7 @@ audit.get_audit_info = function(id,action){
                 if(v.DIAGTYPE =='1'){option = option1 }else{ option = option2}
                 $('#tbl_icd_list > tbody').append(
                     '<tr>' +
-                    '<td>'+no+'</td>' +
+                    '<td class="row">'+no+'<span style="display: none" ><i class="fa fa-check text-success"></i></span></td>' +
                     '<td>' + v.DIAGCODE + '</td>' +
                     '<td>' + v.diseasethai + '</td>' +
                     '<td>'+ v.DIAGTYPE+'</td>' +
@@ -341,7 +325,7 @@ audit.set_audit_hosp=function(data){
         items.txt_auditicd = $(this).val();
 
         //app.alert(hospcode);
-       audit.ajax.save_audit_icd(items);
+       audit.save_audit_icd(items);
 
     });
 
@@ -376,6 +360,22 @@ audit.set_audit_hosp=function(data){
 
     }
 
+
+    audit.save_audit_icd = function(items){
+        //app.alert(items.action);
+
+            audit.ajax.save_audit_icd(items, function (err, data) {
+                if (err) {
+                    app.alert(err);
+                }
+                else {
+                    app.alert('บันทึกข้อมูลเรียบร้อย');
+                    //audit.get_audit_hosp(hospcode);
+                }
+            });
+
+
+    }
     $('#btn_audit_save').on('click',function(){
 
         var items={};
