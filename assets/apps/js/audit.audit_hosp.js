@@ -169,28 +169,34 @@ audit.get_audit_info = function(id,action){
     }
     audit.set_audit_icd = function(data){
         $('#tbl_icd_list > tbody').empty();
-        var no = 1,option=null;
-        var option1 = '<option value=""> ยังไม่ได้ตรวจสอบ </option>' +
-            '<option value="Y"> สัญลักษณ์Y : ให้รหัสถูกต้อง</option>' +
-            '<option value="A"> สัญลักษณ์A : ให้รหัสโรคผิดพลาด</option>' +
-            '<option value="B"> สัญลักษณ์B : มีรหัสโรคทั้งๆที่ไม่มีคําวินิจฉัยโรคในบันทึก</option>' +
-            '<option value="C"> สัญลักษณ์C : รหัสเป็นรหัสด้อยคุณภาพ โดยมีสาเหตุมาจากคําวินิจฉัยโรคที่ด้อยคุณภาพ</option>' +
-            '<option value="D"> สัญลักษณ์D : รหัสมีตัวเลขไม่ครบทุกตําแหน่ง</option>' +
-            '<option value="E"> สัญลักษณ์E : ใช้สาเหตุภายนอก (V,W,X,Y) เป็นรหัสโรคหลัก</option>' +
-            '<option value="F"> สัญลักษณ์F : รหัสมีตัวเลขมากเกินไป</option>';
-        var option2 = '<option value=""> ยังไม่ได้ตรวจสอบ </option>' +
-            '<option value="Y"> สัญลักษณ์Y : ให้รหัสถูกต้อง</option>' +
-            '<option value="A"> สัญลักษณ์A : ให้รหัสโรคผิดพลาด</option>' +
-            '<option value="B"> สัญลักษณ์B : มีรหัสโรคทั้งๆที่ไม่มีคําวินิจฉัยโรคในบันทึก</option>' +
-            '<option value="C"> สัญลักษณ์C : รหัสเป็นรหัสด้อยคุณภาพ โดยมีสาเหตุมาจากคําวินิจฉัยโรคที่ด้อยคุณภาพ</option>' +
-            '<option value="D"> สัญลักษณ์D : รหัสมีตัวเลขไม่ครบทุกตําแหน่ง</option>' +
-            '<option value="F"> สัญลักษณ์F : รหัสมีตัวเลขมากเกินไป</option>' +
-            '<option value="G"> สัญลักษณ์G : ควรมีรหัสนี้แต่รหัสไม่ปรากฏในข้อมูลที่ตรวจสอบ</option>' +
-            '<option value="H"> สัญลักษณ์H : ไม่ควรมีรหัสนี้แต่มีรหัสในข้อมูลที่ตรวจสอบ</option>';
-
+        var no = 1,option=null,selected=null;
+        var option1 =[  {id:"", name:"ยังไม่ได้ตรวจสอบ"},
+                        {id:"Y", name:" สัญลักษณ์ Y : ให้รหัสถูกต้อง"},
+                        {id:"A", name:" สัญลักษณ์ A : ให้รหัสโรคผิดพลาด"},
+                        {id:"B", name:" สัญลักษณ์ B : มีรหัสโรคทั้งๆที่ไม่มีคําวินิจฉัยโรคในบันทึก"},
+                        {id:"C", name:" สัญลักษณ์ C : รหัสเป็นรหัสด้อยคุณภาพ โดยมีสาเหตุมาจากคําวินิจฉัยโรคที่ด้อยคุณภาพ"},
+                        {id:"D", name:" สัญลักษณ์ D : รหัสมีตัวเลขไม่ครบทุกตําแหน่ง"},
+                        {id:"E", name:" สัญลักษณ์ E : ใช้สาเหตุภายนอก (V,W,X,Y) เป็นรหัสโรคหลัก"},
+                        {id:"F", name:" สัญลักษณ์ F : รหัสมีตัวเลขมากเกินไป"},
+            ];
+        var option2 =[  {id:"", name:"ยังไม่ได้ตรวจสอบ"},
+                        {id:"Y", name:" สัญลักษณ์ Y : ให้รหัสถูกต้อง"},
+                        {id:"A", name:" สัญลักษณ์ A : ให้รหัสโรคผิดพลาด"},
+                        {id:"B", name:" สัญลักษณ์ B : มีรหัสโรคทั้งๆที่ไม่มีคําวินิจฉัยโรคในบันทึก"},
+                        {id:"C", name:" สัญลักษณ์ C : รหัสเป็นรหัสด้อยคุณภาพ โดยมีสาเหตุมาจากคําวินิจฉัยโรคที่ด้อยคุณภาพ"},
+                        {id:"D", name:" สัญลักษณ์ D : รหัสมีตัวเลขไม่ครบทุกตําแหน่ง"},
+                        {id:"F", name:" สัญลักษณ์ F : รหัสมีตัวเลขมากเกินไป"},
+                        {id:"G", name:" สัญลักษณ์ G : ควรมีรหัสนี้แต่รหัสไม่ปรากฏในข้อมูลที่ตรวจสอบ"},
+                        {id:"H", name:" สัญลักษณ์ H : ไม่ควรมีรหัสนี้แต่มีรหัสในข้อมูลที่ตรวจสอบ"},
+        ];
         if (_.size(data.rows) > 0) {
             _.each(data.rows, function (v) {
                 if(v.DIAGTYPE =='1'){option = option1 }else{ option = option2}
+                _.each(option, function (code) {
+
+                    if(v.AUDIT_ICD10 == code.id){selected='selected'}else{selected='';}
+                    option +='<option value="'+ code.id+'" '+selected+'>'+ code.name+'</option>';
+                });
                 $('#tbl_icd_list > tbody').append(
                     '<tr>' +
                     '<td class="row">'+no+'<span style="display: none" ><i class="fa fa-check text-success"></i></span></td>' +
