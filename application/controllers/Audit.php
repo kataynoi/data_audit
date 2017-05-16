@@ -34,6 +34,11 @@ class Audit extends CI_Controller {
         $data['audit']=$this->audit->get_hospaudit($this->amp_code);
         $this->layout->view('audit/index_view',$data);
     }
+    public function audit_opd()
+    {
+        $data['audit']=$this->audit->get_hospaudit($this->amp_code);
+        $this->layout->view('audit/index_view',$data);
+    }
     public function audit_hosp($hospcode)
     {
         //$data['hospcode']=$this->input->post('hospcode');

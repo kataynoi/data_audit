@@ -120,10 +120,10 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Audit <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo site_url('audit')?>"> Audit ผู้ป่วยนอก</a>
+                                    <a href="<?php echo site_url('audit/audit_opd')?>"> Audit ผู้ป่วยนอก</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('audit/auditIPD')?>"> Audit ผู้ป่วยใน </a>
+                                    <a href="<?php echo site_url('audit/audit_ipd')?>"> Audit ผู้ป่วยใน </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

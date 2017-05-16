@@ -12,32 +12,26 @@ class Audit_model extends CI_Model
     {
         $rs = $this->db
             ->select("a.hospcode,CONCAT(a.hospcode,':',b.hosname) as hospname,count(*) as total ",false)
-            ->select("SUM(IF(a.diag_group=1,1,0)) as g_1",false)
-            ->select("SUM(IF(a.diag_group=2,1,0)) as g_2",false)
-            ->select("SUM(IF(a.diag_group=3,1,0)) as g_3",false)
-            ->select("SUM(IF(a.diag_group=4,1,0)) as g_4",false)
-            ->select("SUM(IF(a.diag_group=5,1,0)) as g_5",false)
-            ->select("SUM(IF(a.diag_group=6,1,0)) as g_6",false)
-            ->select("SUM(IF(a.diag_group=7,1,0)) as g_7",false)
-            ->select("SUM(IF(a.diag_group=8,1,0)) as g_8",false)
-            ->select("SUM(IF(a.diag_group=9,1,0)) as g_9",false)
-            ->select("SUM(IF(a.diag_group=10,1,0)) as g_10",false)
-            ->select("SUM(IF(a.diag_group=11,1,0)) as g_11",false)
-            ->select("SUM(IF(a.diag_group=12,1,0)) as g_12",false)
+            ->select("SUM(IF(d.percent IS NOT NULL, 1, 0))*100/count(*) AS percent_input ")
+            ->select("AVG(d.percent) as percent_avg")
+            ->select("e.icd_total,e.percent_icd,e.percent_icd_avg")
             ->join('chospital b ','a.hospcode = b.hoscode')
             ->join('campur c ','CONCAT("44",b.distcode) = c.ampurcodefull')
-            ->where('c.ampurcodefull',$code)
+            ->join('audit d','a.id=d.data_audit_id','left')
+            ->join('(select hospcode,count(*) as icd_total,SUM(IF(AUDIT_ICD10 IS NOT NULL,1,0))*100/count(*) as percent_icd,SUM(IF(AUDIT_ICD10 ="Y",1,0))*100/SUM(IF(AUDIT_ICD10 IS NOT NULL,1,0)) as percent_icd_avg from diagnosis_opd group by hospcode) e ','a.hospcode = e.hospcode ','left')
+            ->where(' c.ampurcodefull',$code)
             ->group_by('a.hospcode')
             ->get('data_audit a')
 
             ->result();
-
+       // echo $this->db->last_query();
         return $rs;
 
     }
     public  function get_audit_hosp($hospcode){
         $rs = $this->db
             ->select('a.* ,b.date_audit,b.percent,b.score,b.max_score')
+
             ->where('a.hospcode',$hospcode)
             ->join('audit b','a.id=b.data_audit_id','left')
             ->order_by('a.date_serve')
