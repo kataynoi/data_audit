@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Data Aidit Mahasarakham 1.0.0</title>
+    <title><?php echo version();?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url()?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

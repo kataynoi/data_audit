@@ -18,9 +18,6 @@
                 </li>
             </ul>
         </div>
-        <div class="panel-footer">
-            Panel Footer
-        </div>
     </div>
 </div>
 <div class="row">
@@ -52,9 +49,6 @@
                 </li>
 
             </ul>
-        </div>
-        <div class="panel-footer">
-            Panel Footer
         </div>
     </div>
 </div>
