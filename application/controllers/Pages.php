@@ -21,6 +21,14 @@ class Pages extends CI_Controller
         $this->layout->view('pages/index_view', $data);
         $this->load->view('download/index_view');
     }
+    public  function  get_success_by_amp (){
+        $note=$this->input->post('note');
+        $rs = $this->reports->get_success_by_amp ($note);
+        $rows = json_encode($rs);
+
+        $json = '{"success": true, "rows": '.$rows.'}';
+        render_json($json);
+    }
 
 }
 

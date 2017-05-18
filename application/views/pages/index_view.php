@@ -97,10 +97,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                <i class="fa fa-bar-chart-o fa-fw"></i> ร้อยละหน่วยบริการที่ทำการ Audit OPD
                 <div class="pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -123,10 +123,11 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <div id="morris-area-chart"></div>
+                <div id="chart1"></div>
             </div>
             <!-- /.panel-body -->
         </div>
         <!-- /.panel -->
 
-
+        <script src="<?php echo base_url() ?>assets/apps/js/dashboard.js" charset="utf-8"></script>
+        <script src="<?php echo base_url() ?>assets/apps/js/basic.js" charset="utf-8"></script>
