@@ -59,6 +59,14 @@ $(function() {
                     color: '#808080'
                 }]
             },
+            plotOptions: {
+            column: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
 
             tooltip: {
                 valueSuffix: ' %'
