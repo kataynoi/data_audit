@@ -48,7 +48,7 @@ class Reports_model extends CI_Model {
         return $rs->percent_audit_icd10_true;
     }
     public  function get_success_by_amp ($note){
-        $sql="SELECT b.ampurname,ROUND(a.percent_success,2) as success FROM (SELECT c.distcode,
+        $sql="SELECT b.ampurname,ROUND(SUM(IF(a.percent_success = 100,1,0))*100/COUNT(*),2)  as success FROM (SELECT c.distcode,
                 SUM(IF(b.percent is not null,1,0))*100/count(*) as percent_success
                 FROM data_audit a
                 LEFT JOIN audit b ON a.id = b.data_audit_id
@@ -56,7 +56,7 @@ class Reports_model extends CI_Model {
                 GROUP BY a.hospcode) a
                 JOIN (SELECT * from campur where changwatcode='44') b ON a.distcode = b.ampurcode
                 GROUP BY a.distcode
-                ORDER BY a.percent_success DESC";
+                ORDER BY success DESC";
         $rs = $this->db->query($sql)->result();
         return $rs;
     }
