@@ -125,7 +125,7 @@ class Audit extends CI_Controller {
     }
 
     public function get_audit_icd (){
-        $hospcode=$this->input->post('hospcode');
+
         $seq=$this->input->post('seq');
 
         $rs = $this->audit->get_audit_icd($hospcode,$seq);
