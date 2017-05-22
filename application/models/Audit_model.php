@@ -100,7 +100,7 @@ class Audit_model extends CI_Model
             //->select('b.datetime, b.cc as a_cc, b.history, b.phy_ex,b.treatment, b.diag_text')
             ->where('a.seq',$seq)
             ->where('a.hospcode',$hospcode)
-            ->join('cdisease b','a.diagcode=b.diagcode','left')
+            ->join('hdc.cdisease b','a.diagcode=b.diagcode','left')
             ->order_by('a.diagtype')
             ->get('diagnosis_opd a')
             ->result();

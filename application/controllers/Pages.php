@@ -14,12 +14,16 @@ class Pages extends CI_Controller
 
     public function index()
     {
+
         $data['percent_audit'] = number_format($this->reports->get_percent_audit(), 2);
         $data['percent_audit_true'] = number_format($this->reports->get_percent_audit_true(), 2);
         $data['percent_audit_icd10'] = number_format($this->reports->get_percent_audit_icd10(), 2);;
         $data['percent_audit_icd10_true'] = number_format($this->reports->get_percent_audit_icd10_true(), 2);;
         $this->layout->view('pages/index_view', $data);
         $this->load->view('download/index_view');
+        /*
+        $data['offline_msq'] = 'ปิดปรับปรุงระบบ ถึง 22 พ.ค. 60 11.00 น.';
+        $this->load->view('pages/offline_view',$data);*/
     }
     public  function  get_success_by_amp (){
         $note=$this->input->post('note');
