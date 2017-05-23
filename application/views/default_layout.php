@@ -86,7 +86,12 @@
             <a class="navbar-brand" href="<?php echo site_url();?>">Data Audit 1.0.0</a>
         </div>
         <!-- /.navbar-header -->
-
+<?php
+if(!$this->session->userdata("username")){
+    echo '<ul class="nav navbar-top-links navbar-right">';
+    echo "<li class='dropdown'> <a href=".site_url('users/login')."><i class=' fagit fa-user'></i> Login </a></li></ul>";
+}else{
+?>
         <ul class="nav navbar-top-links navbar-right">
             <!-- /.dropdown -->
             <li class="dropdown">
@@ -106,6 +111,7 @@
             </li>
             <!-- /.dropdown -->
         </ul>
+        <?php }?>
         <!-- /.navbar-top-links -->
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
