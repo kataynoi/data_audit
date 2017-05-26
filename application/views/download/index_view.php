@@ -28,8 +28,8 @@
         <div class="panel-body">
             <ul class='list-group lg col-lg-6'>
                 <li class="list-group-item">
-                    <img src="http://thcc.or.th/Images/coverbook/hdc.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">
-                    <a target="_blank" href="http://thcc.or.th/download/audithdc/AuditManual58_upd_06052015.pdf"> คู่มือ Audit การตรวจสอบและควบคุมคุณภาพในระบบบริการสุขภาพฯ</a>
+                    <img src="http://thcc.or.th/Images/coverbook/Audit_1F.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">
+                    <a target="_blank" href="http://thcc.or.th/download/audit59/Audit_1.pdf"> คู่มือ Audit มาตรฐานการเก็บข้อมูลและบันทึกข้อมูลฯ</a>
                 </li>
                 <li class="list-group-item">
                     <img src="http://thcc.or.th/Images/coverbook/43flie2.2.jpg" class="rounded float-left" alt="" style="width: 100px;height: 150px">

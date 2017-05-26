@@ -135,6 +135,15 @@ if(!$this->session->userdata("username")){
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
+
+                            <a class="fa fa-bar-chart" href="<?php echo site_url('report/')?>"> รายงาน </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo site_url('reports/audit1')?>"> ข้อมูล Audit ผู้ป่วยนอกรายด้าน</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="<?php echo site_url('download')?>"><i class="fa fa-table fa-fw"></i> เอกสารดาวน์โหลด</a>
                         </li>
 
