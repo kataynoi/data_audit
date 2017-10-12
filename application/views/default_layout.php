@@ -89,6 +89,7 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <!-- /.dropdown -->
+            <?php if(!$this->session->userdata("username")){?>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i> <?php echo $this->session->userdata('fullname');?>
@@ -104,6 +105,14 @@
                 </ul>
                 <!-- /.dropdown-user -->
             </li>
+            <?php }else{ ?>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo site_url('users/login')?>">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i> Login
+                </a>
+                <!-- /.dropdown-user -->
+            </li>
+            <?php }?>
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
