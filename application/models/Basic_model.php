@@ -314,13 +314,23 @@ public function get_chronic_group()
         ->get('c_diag_text')
         ->result();
     return $rs;
-}    public function get_sl_treatment()
+}
+
+    public function get_sl_treatment()
 {
     $rs = $this->db
         ->get('c_treatment')
         ->result();
     return $rs;
 }
+    public  function get_provode(){
+        $rs = $this->db
+            ->limit(1)
+            ->get('config')
+            ->row();
+
+        return count($rs) > 0 ? $rs->provcode : '0';
+    }
 }
 
 /* End of file basic_model.php */

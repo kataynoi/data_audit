@@ -1,4 +1,5 @@
 <?php
+$ci->load->model('Basic_model', 'basic');
 if ( ! function_exists('render_json'))
 {
     function render_json($json)
@@ -35,7 +36,7 @@ if ( ! function_exists('version'))
 {
     function version()
     {
-        $version=' Data Audit Mahasarakham beta';
+        $version=' Data Audit';
 
         return $version;
 
@@ -73,11 +74,11 @@ if ( ! function_exists('year'))
 }
 if ( ! function_exists('provid'))
 {
-    function provid()
+    function provcode()
     {
-        $provid='44';
+        $provcode=$this->basic->get_provcode();
 
-        return $provid;
+        return $provcode;
 
     }
 
@@ -274,7 +275,23 @@ if(!function_exists('get_sex'))
         }
     }
 }
-#### ข้อมูลการคลอด
+
+if(!function_exists('get_branch'))
+{
+    function get_branch($id)
+    {
+        if(!empty($id))
+        {
+            if($id == '1') return 'ชาย';
+            else if($id == '2') return 'หญิง';
+            else return 'ไม่ระบุ';
+        }
+        else
+        {
+            return '-';
+        }
+    }
+}
 if(!function_exists('get_address'))
 {
     /**

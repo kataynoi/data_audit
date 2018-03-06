@@ -6,8 +6,10 @@
  *
  */
 
+
 class Audit_model extends CI_Model
 {
+    public $provcode ;
     public function get_hospaudit($code)
     {
         $rs = $this->db
@@ -16,7 +18,7 @@ class Audit_model extends CI_Model
             ->select("AVG(d.percent) as percent_avg")
             ->select("e.icd_total,e.percent_icd,e.percent_icd_avg")
             ->join('chospital b ','a.hospcode = b.hoscode')
-            ->join('campur c ','CONCAT("44",b.distcode) = c.ampurcodefull')
+            ->join('campur c ','CONCAT("'.$this->provcode.'",b.distcode) = c.ampurcodefull')
             ->join('audit d','a.id=d.data_audit_id','left')
             ->join('(select hospcode,count(*) as icd_total,SUM(IF(AUDIT_ICD10 IS NOT NULL,1,0))*100/count(*) as percent_icd,SUM(IF(AUDIT_ICD10 ="Y",1,0))*100/SUM(IF(AUDIT_ICD10 IS NOT NULL,1,0)) as percent_icd_avg from diagnosis_opd group by hospcode) e ','a.hospcode = e.hospcode ','left')
             ->where(' c.ampurcodefull',$code)

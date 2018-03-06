@@ -13,11 +13,9 @@
 
 class Users extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-
         $this->layout->setLayout('login_layout');
         //load model
         $this->load->model('User_model', 'users');
