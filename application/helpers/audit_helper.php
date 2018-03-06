@@ -1,5 +1,5 @@
 <?php
-$ci->load->model('Basic_model', 'basic');
+
 if ( ! function_exists('render_json'))
 {
     function render_json($json)
@@ -72,11 +72,13 @@ if ( ! function_exists('year'))
     }
 
 }
-if ( ! function_exists('provid'))
+if ( ! function_exists('get_provcode'))
 {
-    function provcode()
+    function get_provcode()
     {
-        $provcode=$this->basic->get_provcode();
+        $CI = get_instance();
+        $CI->load->model('Basic_model');
+        $provcode=$CI->Basic_model->get_provcode();
 
         return $provcode;
 

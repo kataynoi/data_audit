@@ -323,7 +323,7 @@ public function get_chronic_group()
         ->result();
     return $rs;
 }
-    public  function get_provode(){
+    public  function get_provcode(){
         $rs = $this->db
             ->limit(1)
             ->get('config')

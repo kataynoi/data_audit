@@ -24,19 +24,19 @@ class Audit extends CI_Controller {
         $this->load->model('Basic_model', 'basic');
         $this->amp_code = $this->session->userdata('amp_code');
         $this->db = $this->load->database('default', true);
-        $this->prov_code='44';
+        $this->prov_code=get_provcode();
 
 
     }
 
     public function index()
     {
-        $data['audit']=$this->audit->get_hospaudit($this->amp_code);
+        $data['audit']=$this->audit->get_hospaudit($this->amp_code,$this->prov_code);
         $this->layout->view('audit/index_view',$data);
     }
     public function audit_opd()
     {
-        $data['audit']=$this->audit->get_hospaudit($this->amp_code);
+        $data['audit']=$this->audit->get_hospaudit($this->amp_code,$this->prov_code);
         $this->layout->view('audit/index_view',$data);
     }
     public function audit_hosp($hospcode)
