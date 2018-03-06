@@ -93,6 +93,7 @@
                                     <th> Diagname</th>
                                     <th> Diag type</th>
                                     <th> Audit</th>
+                                    <th> ICD10 ที่ถูกต้อง</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -106,6 +107,7 @@
                         </div>
                     </div>
                     <div class="panel-footer text-center">
+                        <button type="submit" class="btn btn-default" id="btn_audit_icd10_save">บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>

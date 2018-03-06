@@ -120,7 +120,18 @@ class Audit_model extends CI_Model
         //echo $this->db->last_query();
         return $rs;
     }
+    public function save_audit_icd10_true($data)
+    {
+        $rs = $this->db
 
+            ->set('TRUE_ICD10',$data['txt_icd10_true'])
+            ->where('HOSPCODE',$data['hospcode'])
+            ->where('SEQ',$data['seq'])
+            ->where('DIAGCODE',$data['diagcode'])
+            ->update('diagnosis_opd');
+        //echo $this->db->last_query();
+        return $rs;
+    }
     public function update_audit_icd($data)
     {
         $rs = $this->db

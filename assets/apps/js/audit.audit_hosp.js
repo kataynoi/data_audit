@@ -66,6 +66,18 @@ $(document).ready(function(){
                 err ? cb(err) : cb(null, data);
             });
         },
+        save_audit_icd_true: function (items, cb) {
+            var url = '/audit/save_audit_icd10_true',
+                params = {
+                    items: items
+                }
+
+            app.ajax(url, params, function (err, data) {
+                //console.log(JSON.stringify(data));
+
+                err ? cb(err) : cb(null, data);
+            });
+        },
         edit_audit_icd: function (items, cb) {
             var url = '/audit/edit_audit_icd',
                 params = {
@@ -206,7 +218,10 @@ audit.get_audit_info = function(id,action){
                     '<td><select data-seq="'+ v.SEQ +'" data-name="sl_auditicd" class="form-control"' +
                     'data-hospcode="'+ v.HOSPCODE+'" data-diagcode="'+ v.DIAGCODE+'">' +
                     option+
-                    '</select></td>'+
+                    '</select>' +
+                    '<td><input type="text" class="form-control" data-seq="'+ v.SEQ +'" data-name= "txt_icd10_true" value="'+ v.TRUE_ICD10+'"' +
+                    'data-hospcode="'+ v.HOSPCODE+'" data-diagcode="'+ v.DIAGCODE + '">'+
+                    '</td>'+
                     '</tr>'
                 );
                 no++;
@@ -331,7 +346,20 @@ audit.set_audit_hosp=function(data){
         items.txt_auditicd = $(this).val();
 
         //app.alert(hospcode);
-       audit.save_audit_icd(items);
+        audit.save_audit_icd(items);
+
+    });
+
+    $(document).on('change', 'input[data-name="txt_icd10_true"]', function(e) {
+        e.preventDefault();
+        var items={};
+        items.seq = $(this).data('seq');
+        items.hospcode = $(this).data('hospcode');
+        items.diagcode = $(this).data('diagcode');
+        items.txt_icd10_true = $(this).val();
+
+        app.alert(hospcode);
+        audit.save_audit_icd_true(items);
 
     });
 
@@ -379,9 +407,18 @@ audit.set_audit_hosp=function(data){
                     //audit.get_audit_hosp(hospcode);
                 }
             });
-
-
     }
+    audit.save_audit_icd_true = function(items){
+        audit.ajax.save_audit_icd_true(items, function (err, data) {
+            if (err) {
+                app.alert(err);
+            }
+            else {
+                app.alert('บันทึกข้อมูลเรียบร้อย');
+            }
+        });
+    }
+
     $('#btn_audit_save').on('click',function(){
 
         var items={};
