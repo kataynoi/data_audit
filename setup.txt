@@ -1,0 +1,33 @@
+1. // สั่ง Run คำสั่งนี้ Database data_audit61
+
+ALTER TABLE diagnosis_opd
+ADD TRUE_ICD10 char(10) DEFAULT '';
+CREATE TABLE `config` (
+  `provcode` int(2) DEFAULT NULL,
+  `proname` varchar(20) DEFAULT NULL,
+  `date_start` date DEFAULT NULL,
+  `date_end` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+2 . เข้าไปแก้ไข ข้อมูลใน Table config กำหนดรหัสจังหวัด
+3. นำ Folder data_audit.rar ไปวางที่ Server แล้วแก้ไข Config 
+4. แก้ไฟลล์ 
+application/config/database.php
+// บรรทัดที่ 78 ถึง 80 ให้ตรงตาม Mysql 
+
+$db['default'] = array(
+    'dsn'	=> '',
+    'hostname' => '203.157.185.xx',
+    'username' => '',
+    'password' => '',
+    'database' => 'data_audit61',
+5. แก้ไขไฟลล์  application/config/config.php 
+//บรรทัด 17  แก้ไขให้ตรงกับ Server ของท่านที่วางไฟล์ไว้  ตัวอย่างเช่นด้านล่าง 
+$config['base_url']	= 'http://203.157.185.18/audit';
+
+เสร็จแล้วครับ
+
+ปล. หากท่านใช้งาน Git สามารถ Update ได้ที่ 
+repo : https://github.com/kataynoi/data_audit.git
+
+
