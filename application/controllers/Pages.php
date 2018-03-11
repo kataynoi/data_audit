@@ -10,6 +10,7 @@ class Pages extends CI_Controller
             //redirect(site_url('users/login'));
         $this->load->model('Base_data_model', 'base_data');
         $this->load->model('Reports_model', 'reports');
+        $this->prov_code=get_provcode();
     }
 
     public function index()
@@ -27,7 +28,7 @@ class Pages extends CI_Controller
     }
     public  function  get_success_by_amp (){
         $note=$this->input->post('note');
-        $rs = $this->reports->get_success_by_amp ($note);
+        $rs = $this->reports->get_success_by_amp ($this->prov_code);
         $rows = json_encode($rs);
 
         $json = '{"success": true, "rows": '.$rows.'}';
